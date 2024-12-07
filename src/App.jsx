@@ -56,8 +56,7 @@ function App(){
       setediting(true)
       setTodos(newTodoList);
     }
-    changeEditing()
-  
+    
   }
 
   function handleSaveData(todosToSave){
