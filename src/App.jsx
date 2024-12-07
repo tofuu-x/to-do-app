@@ -5,11 +5,14 @@ import TodoList from "./components/TodoList";
 import {useState,useEffect} from 'react';
 
 function App(){
-  
+  const [editing,setediting]=useState(false)
+
   const [todos,setTodos]=useState([
     
   ])
   
+  const [inputValue,setInputValue]=useState('')
+
   const [selectedTab, setSelectedTab]=useState('Open')
 
   function handleAddTodo(newTodo){
@@ -40,6 +43,23 @@ function App(){
     handleSaveData();
   }
 
+  function changeEditing(){
+    setediting(false)
+  }
+
+  function handleEditTodo(todo){
+    let newTodoList=[...todos];
+    const editTodo=newTodoList.find((t)=>t.id===todo.id);
+    if(editTodo){
+      setInputValue(editTodo.input);
+      newTodoList=newTodoList.filter((t)=>t.id!==todo.id)
+      setediting(true)
+      setTodos(newTodoList);
+    }
+    changeEditing()
+  
+  }
+
   function handleSaveData(todosToSave){
     console.log("Saving todos to localStorage",todosToSave)
     localStorage.setItem('todo-app',JSON.stringify({todos:todosToSave}));
@@ -64,8 +84,8 @@ function App(){
 
       <Header todos={todos}/>
       <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} todos={todos}/>
-      <TodoList selectedTab={selectedTab}todos={todos} handleDeleteTodo={handleDeleteTodo} handleCompleteTodo={handleCompleteTodo}/>
-      <TodoInput handleAddTodo={handleAddTodo}/>
+      <TodoList selectedTab={selectedTab}todos={todos} handleDeleteTodo={handleDeleteTodo} handleCompleteTodo={handleCompleteTodo} handleEditTodo={handleEditTodo}/>
+      <TodoInput handleAddTodo={handleAddTodo} inputValue={inputValue} setInputValue={setInputValue} editing={editing}/>
 
 
     </>

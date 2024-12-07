@@ -105,14 +105,19 @@ hr {
 .todo-buttons button:last-of-type {
   /* color: #9580ff;
   background: rgba(149, 128, 255, .1); */
-  color: var(--color-link);
-  background: var(--color-link-transparent);
+  color: white;
+  background: darkred
 }
 
+.todo-buttons button:nth-of-type(2){
+  background: var(--color-link-transparent);
+}
 
 .todo-item p {
   font-weight: 500;
 }
+
+
 
 .input-container {
   display: flex;
